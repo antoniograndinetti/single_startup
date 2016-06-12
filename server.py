@@ -47,7 +47,6 @@ def guestbook_key(guestbook_name=DEFAULT_GUESTBOOK_NAME):
     return ndb.Key('Guestbook', guestbook_name)
 
 
-# [START greeting]
 class Startup(ndb.Model):
     """Sub model for representing an author."""
     nome = ndb.StringProperty(indexed=False)
@@ -57,12 +56,11 @@ class Startup(ndb.Model):
     #avatar = ndb.BlobProperty()
     date = ndb.DateTimeProperty(auto_now_add=True)
 
-# class Greeting(ndb.Model):
-#     """A main model for representing an individual Guestbook entry."""
-#     author = ndb.StructuredProperty(Author)
-#     content = ndb.StringProperty(indexed=False)
-#     date = ndb.DateTimeProperty(auto_now_add=True)
-# [END greeting]
+class FBUser(ndb.Model):
+    """Sub model for representing an author."""
+    fbid = ndb.StringProperty()
+    nome = ndb.StringProperty(indexed=False)
+    date = ndb.DateTimeProperty(auto_now_add=True)
 
 
 # [START main_page]
@@ -104,6 +102,16 @@ class MainPage(webapp2.RequestHandler):
         }
         template = JINJA_ENVIRONMENT.get_template('index.html')
         self.response.write(template.render(params_value))
+    def post(self):
+        result = FBUser.query(FBUser.fbid == self.request.get('fbID'))
+
+        if result.fetch() == []:
+            fbuser_add = FBUser()
+            fbuser_add.fbid = self.request.get('fbID')
+            fbuser_add.nome = self.request.get('name')
+            fbuser_add.put()
+
+        
 
 class AdminPage(webapp2.RequestHandler):
     def get(self):
