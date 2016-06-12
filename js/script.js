@@ -218,27 +218,27 @@ $(document).ready(function() {
 
 
 //MAILCHIMP
-$(document).ready(function() {
+// $(document).ready(function() {
 
-    "use strict";
+//     "use strict";
     
-    $('#mc-form').ajaxChimp({
-        callback: mailchimpCallback,
-        url: "https://themerocks.us9.list-manage.com/subscribe/post?u=f04c804868966b1b4509daa9b&amp;id=ad7b6aba65"
-    });
+//     $('#mc-form').ajaxChimp({
+//         callback: mailchimpCallback,
+//         url: "https://themerocks.us9.list-manage.com/subscribe/post?u=f04c804868966b1b4509daa9b&amp;id=ad7b6aba65"
+//     });
 
-    function mailchimpCallback(resp) {
+//     function mailchimpCallback(resp) {
 
-        "use strict";
+//         "use strict";
         
-        if (resp.result === 'success') {
-            $('.subscription-success').html('<i class="pe-7s-check"></i><br/>' + resp.msg).fadeIn(1000);
-            $('.subscription-error').fadeOut(500);
-        } else if (resp.result === 'error') {
-            $('.subscription-error').html('<i class="pe-7s-close-circle"></i><br/>' + resp.msg).fadeIn(1000);
-        }
-    }
-});
+//         if (resp.result === 'success') {
+//             $('.subscription-success').html('<i class="pe-7s-check"></i><br/>' + resp.msg).fadeIn(1000);
+//             $('.subscription-error').fadeOut(500);
+//         } else if (resp.result === 'error') {
+//             $('.subscription-error').html('<i class="pe-7s-close-circle"></i><br/>' + resp.msg).fadeIn(1000);
+//         }
+//     }
+// });
 
 
 
@@ -253,8 +253,8 @@ $(document).ready(function() {
         
         var name = $("#name").val();
         var emaild = $("#email").val();
-        var subject = $("#subject").val();
-        var message = $("#message").val();
+        var subject = $("#website").val();
+        var message = $("#avatar").val();
         var testEmail = /^[A-Z0-9._%+-]+@([A-Z0-9-]+\.)+[A-Z]{2,4}$/i;
         if (!name) {
             $(".form_error .name_error").addClass("show").removeClass("hide");
@@ -280,33 +280,33 @@ $(document).ready(function() {
         } else {
             $(".form_error .message_error").addClass("hide").removeClass("show");
         }
-        if (name && emaild && message) {
-            $.ajax({
-                url: 'contact.php',
-                data: {
-                    name: name,
-                    emaild: emaild,
-                    subject: subject,
-                    message: message
-                },
-                type: 'POST',
-                success: function(data) {
-                    $(".Sucess").show();
-                    $(".Sucess").fadeIn(2000);
-                    $(".Sucess").html("<i class='fa fa-check'></i> Dear <b>" + name + "</b> Thank you for your inquiry we will respond to you as soon as possible!");
-                    $("#Name").val("");
-                    $("#Email").val("");
-                    $("#Subject").val("");
-                    $("#Message").val("");
-                    $(".form_error .name_error, .form_error .email_error, .form_error .email_val_error, .form_error .message_error").addClass("hide").removeClass("show");
-                    $("#name").val("");
-                    $("#email").val("");
-                    $("#subject").val("");
-                    $("#message").val("");
-                }
-            });
-        }
-        return false;
+        // if (name && emaild && message) {
+        //     $.ajax({
+        //         url: 'contact.php',
+        //         data: {
+        //             name: name,
+        //             emaild: emaild,
+        //             subject: subject,
+        //             message: message
+        //         },
+        //         type: 'POST',
+        //         success: function(data) {
+        //             $(".Sucess").show();
+        //             $(".Sucess").fadeIn(2000);
+        //             $(".Sucess").html("<i class='fa fa-check'></i> Dear <b>" + name + "</b> Thank you for your inquiry we will respond to you as soon as possible!");
+        //             $("#Name").val("");
+        //             $("#Email").val("");
+        //             $("#Subject").val("");
+        //             $("#Message").val("");
+        //             $(".form_error .name_error, .form_error .email_error, .form_error .email_val_error, .form_error .message_error").addClass("hide").removeClass("show");
+        //             $("#name").val("");
+        //             $("#email").val("");
+        //             $("#subject").val("");
+        //             $("#message").val("");
+        //         }
+        //     });
+        // }
+        //return false;
     });
 });
 
@@ -338,17 +338,14 @@ $(document).ready(function() {
 
 
 
-
-
-
-//VIDEO BACKGROUND
-$(document).ready(function() {
-  var videobackground = new $.backgroundVideo($('body'), {
-    "align": "centerXY",
-    "width": 1280,
-    "height": 720,
-    "path": "media/",
-    "filename": "cloud",
-    "types": ["mp4","ogg","webm"]
-  });
-});
+// //VIDEO BACKGROUND
+// $(document).ready(function() {
+//   var videobackground = new $.backgroundVideo($('body'), {
+//     "align": "centerXY",
+//     "width": 1280,
+//     "height": 720,
+//     "path": "media/",
+//     "filename": "cloud",
+//     "types": ["mp4","ogg","webm"]
+//   });
+// });

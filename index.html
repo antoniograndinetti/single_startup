@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% autoescape true %}
 <html lang="en">
 
 <head>
@@ -12,6 +13,7 @@
     <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,900,300italic,400italic' rel='stylesheet' type='text/css'>
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap-social.css" rel="stylesheet">
 
     <!-- Owl Carousel Assets -->
     <link href="css/owl.carousel.css" rel="stylesheet">
@@ -133,9 +135,9 @@
  <!-- END PRELOADER -->
 
  <!-- =========================
-     START ABOUT US SECTION
+     START FIRST SECTION
 ============================== -->
-    <section class="header parallax home-parallax page" id="FIRMA">
+    <section class="header parallax home-parallax page" id="HOME">
         <h2></h2>
         <div class="section_overlay">
             <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -160,6 +162,7 @@
                             <li><a href="#MANIFESTO">MANIFESTO </a> </li>
                             <li><a href="#SOSTENITORI">SOSTENITORI</a></li>
                             <li><a href="#FIRMATO">HANNO FIRMATO</a> </li>
+                            <li><a href="#DPIXEL">ABOUT</a> </li>
                         </ul>
                     </div>
                     <!-- /.navbar-collapse -->
@@ -172,7 +175,7 @@
                     <div class="col-md-12">
                         <div class="logo text-center">
                                 <!-- LOGO -->
-                            <img src="http://placehold.it/124x55" alt="">
+                            <!--<img src="http://placehold.it/124x55" alt="">-->
                         </div>
                     </div>
                 </div>
@@ -185,11 +188,7 @@
 
                             <div class="download-btn">
                             <!-- BUTTON -->
-
-                            <div id="status">
-                            </div>
-                                <!--<a class="btn home-btn wow fadeInLeft" href="#FIRMA">Firma</a>-->
-                                <div class="fb-login-button wow fadeInRight" data-max-rows="1" data-size="large" data-show-faces="false" data-auto-logout-link="true"></div>
+                                <a class="btn home-btn wow fadeInLeft" href="#FIRMA">Firma</a>
                                 <a class="btn home-btn wow fadeInRight" href="#MANIFESTO">Leggi</a>
                             </div>
                         </div>
@@ -271,11 +270,10 @@
                 </div>
             </div>
         </div>
-
-
+    </section>
 
 <!-- =========================
-     Sostenitori
+     SOSTENITORI
 ============================== -->
     <section class="apps_screen page" id="SOSTENITORI">
             <div class="container">
@@ -319,19 +317,82 @@
         </div>
     </section>
 
+<!-- =========================
+     START FORM AREA
+============================== -->
+    <section class="contact page" id="FIRMA">
+        <div class="section_overlay">
+            <div class="container">
+                <div class="col-md-10 col-md-offset-1 wow bounceIn">
+                    <!-- Start Contact Section Title-->
+                    <div class="section_title">
+                        <h2>Sign with your Startup</h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.</p>
+                    </div>
+                </div>
+            </div>
 
-<!--Hanno firmato -->
+            <div class="contact_form wow bounceIn">
+                <div class="container">
 
-    <section class="firmato" id="FIRMATO">
+                <!-- START ERROR AND SUCCESS MESSAGE -->
+                    <div class="form_error text-center">
+                        <div class="name_error hide error">Please Enter your name</div>
+                        <div class="email_error hide error">Please Enter your Email</div>
+                        <div class="email_val_error hide error">Please Enter a Valid Email Address</div>
+                        <div class="message_error hide error">Please Enter Your Message</div>
+                    </div>
+                    <div class="Sucess"></div>
+                <!-- END ERROR AND SUCCESS MESSAGE -->
+
+                <!-- FORM -->    
+                    <form role="form" action="/firma" method="post">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" id="name" name="name" placeholder="Name and Surname">
+                                <input type="email" class="form-control" id="email" name="email" placeholder="Email">
+                                <input type="text" class="form-control" id="website" name="website" placeholder="Website">
+                            </div>
+
+                            <div class="col-md-8">
+                                <textarea class="form-control" id="avatar" rows="25" cols="10" placeholder="Upload your logo"></textarea>
+                                <div><input type="submit" class="btn btn-default submit-btn form_submit" value="SIGN"></div>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- END FORM --> 
+                    <div class="section_title">
+                        <h2>Oppure firma con Facebook:</h2>
+                        <!--<p><div class="fb-login-button" data-max-rows="1" data-size="large" data-show-faces="false" data-auto-logout-link="true"></div></p>-->
+                        
+                            <p>
+                                <a class="btn btn-block btn-social btn-facebook" onclick="FB.login()">
+                                <span class="fa fa-facebook"></span> Sign in with Facebook
+                                </a>
+                                <div id="status">
+                            </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+    <!-- END CONTACT -->
+
+<!-- =========================
+     HANNO FIRMATO
+============================== -->
+
+    <section class="apps_screen firmato page" id="FIRMATO">
         <div class="container">
             <div class="row">
                 <div class="col-md-10 col-md-offset-1">
-                    <!-- FEATURES SECTION TITLE -->
+                    <!-- FIRMATARI SECTION TITLE -->
                     <div class="section_title wow fadeIn" data-wow-duration="1s">
                         <h2>Hanno già firmato</h2>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.</p>
                     </div>
-                    <!-- END FEATURES SECTION TITLE -->
+                    <!-- END FIRMATARI SECTION TITLE -->
                 </div>
             </div>
         </div>
@@ -341,6 +402,9 @@
                 <div class="row">
 
                     <div class="thumbnails">
+<!--                        {% for star in startup_da_visualizzare %}
+                            {{star.nome}}
+                        {% endfor %}-->
                         <script type="text/javascript">
                             for (var i = 0; i < 10; i++) {
                                 document.write('<div class="thumbnail"><img src="http://placehold.it/70x70" alt="Element4" /></div>');
@@ -359,7 +423,22 @@
             </div>
         </div>
     </section>
-    <!-- END FEATURES SECTION -->
+    <!-- END FIRMATARI SECTION -->
+
+
+    <section class="about page" id="DPIXEL">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1">
+                    <!-- ABOUT US SECTION TITLE-->
+                    <div class="section_title">
+                        <h2>CHI SIAMO DPIXEL</h2>
+                        <p>The so called ‘29th regime’ of the Union, a single economic framework for innovative and high growth startups in Europe. A single startup market to boost European driven innovation. A joint initiative from the Unicorn’s Forum and the Founder Forum to stimulate policy makers on building a competitive startup business environment in Europe.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
 
 <!-- =========================
      FOOTER 
@@ -391,7 +470,6 @@
      SCRIPTS 
 ============================== -->
 
-
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/owl.carousel.js"></script>
@@ -406,8 +484,6 @@
     <script src="js/jquery.counterup.min.js"></script>
     <script src="js/script.js"></script>
 
-
-
 </body>
-
 </html>
+{% endautoescape %}
