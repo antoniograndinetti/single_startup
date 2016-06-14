@@ -40,13 +40,31 @@
 </head>
 
 <body>
-    <div>Hello admin</div>
-    <div>Login:</div>
-    <form role="form" action="/admin" method="post">
-        <input type="text" id="username" name="username" placeholder="Username">
-        <input type="password"  id="password" name="password" placeholder="Password">
-        <input type="submit" value="Login">
-    </form>
+    <div>To confirm: </div>
+    {{user}}
+    <ul>
+        {% for conf in to_confirm_list %}
+            <li>Name: {{conf.nome}}, Email: {{conf.email}}, Website: {{conf.website}}</li><a onclick="accept('{{conf.email}}')">Accept</a> <a onclick="remove('{{conf.email}}')">Delete</a>
+        {% endfor %}
+    </ul>
+
+<script type="text/javascript">
+    function accept(id){
+        $.post("http://localhost:8080/confirm",
+        {
+          id: id,
+          type: 'ok',
+        });
+    }
+
+    function remove(id){
+        $.post("http://localhost:8080/confirm",
+        {
+          id: id,
+          type: 'ko',
+        });
+    }
+</script>
 
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>

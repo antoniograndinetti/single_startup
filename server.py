@@ -1,20 +1,5 @@
 #!/usr/bin/env python
 
-# Copyright 2016 Google Inc.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
-# [START imports]
 import os
 import urllib
 
@@ -29,76 +14,36 @@ JINJA_ENVIRONMENT = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
     extensions=['jinja2.ext.autoescape'],
     autoescape=True)
-# [END imports]
-
-DEFAULT_GUESTBOOK_NAME = 'default_guestbook'
-
-
-# We set a parent key on the 'Greetings' to ensure that they are all
-# in the same entity group. Queries across the single entity group
-# will be consistent. However, the write rate should be limited to
-# ~1/second.
-
-def guestbook_key(guestbook_name=DEFAULT_GUESTBOOK_NAME):
-    """Constructs a Datastore key for a Guestbook entity.
-
-    We use guestbook_name as the key.
-    """
-    return ndb.Key('Guestbook', guestbook_name)
 
 
 class Startup(ndb.Model):
-    """Sub model for representing an author."""
     nome = ndb.StringProperty(indexed=False)
-    email = ndb.StringProperty(indexed=False)
+    email = ndb.StringProperty()
     website = ndb.StringProperty(indexed=False)
     accettato = ndb.IntegerProperty()
-    #avatar = ndb.BlobProperty()
+    avatar = ndb.BlobProperty()
     date = ndb.DateTimeProperty(auto_now_add=True)
 
 class FBUser(ndb.Model):
-    """Sub model for representing an author."""
     fbid = ndb.StringProperty()
     nome = ndb.StringProperty(indexed=False)
     date = ndb.DateTimeProperty(auto_now_add=True)
 
-
-# [START main_page]
-# class MainPage(webapp2.RequestHandler):
-
-#     def get(self):
-#         guestbook_name = self.request.get('guestbook_name',
-#                                           DEFAULT_GUESTBOOK_NAME)
-#         greetings_query = Greeting.query(
-#             ancestor=guestbook_key(guestbook_name)).order(-Greeting.date)
-#         greetings = greetings_query.fetch(10)
-
-#         user = users.get_current_user()
-#         if user:
-#             url = users.create_logout_url(self.request.uri)
-#             url_linktext = 'Logout'
-#         else:
-#             url = users.create_login_url(self.request.uri)
-#             url_linktext = 'Login'
-
-#         template_values = {
-#             'user': user,
-#             'greetings': greetings,
-#             'guestbook_name': urllib.quote_plus(guestbook_name),
-#             'url': url,
-#             'url_linktext': url_linktext,
-#         }
-
-#         template = JINJA_ENVIRONMENT.get_template('index.html')
-#         self.response.write(template.render(template_values))
-# # [END main_page]
-
 class MainPage(webapp2.RequestHandler):
     def get(self):
         startups = Startup.query().order(-Startup.date)
-        startup_da_visualizzare = startups.fetch(2)
+        startup_da_visualizzare = startups.fetch(10)
+        startups_number = Startup.query().count()
+
+        fbusers = FBUser.query().order(-Startup.date)
+        fbusers_da_visualizzare = fbusers.fetch(10)
+        fbusers_number = FBUser.query().count()
+
         params_value = {
-            'startup_da_visualizzare': startup_da_visualizzare
+            'startup_da_visualizzare': startup_da_visualizzare,
+            'fbusers_da_visualizzare': fbusers_da_visualizzare,
+            'startups_number': startups_number,
+            'fbusers_number': fbusers_number
         }
         template = JINJA_ENVIRONMENT.get_template('index.html')
         self.response.write(template.render(params_value))
@@ -106,44 +51,86 @@ class MainPage(webapp2.RequestHandler):
         result = FBUser.query(FBUser.fbid == self.request.get('fbID'))
 
         if result.fetch() == []:
-            fbuser_add = FBUser()
-            fbuser_add.fbid = self.request.get('fbID')
-            fbuser_add.nome = self.request.get('name')
-            fbuser_add.put()
+            if self.request.get('fbID') != None:
+                fbuser_add = FBUser()
+                fbuser_add.fbid = self.request.get('fbID')
+                fbuser_add.nome = self.request.get('name')
+                fbuser_add.put()
 
-        
 
 class AdminPage(webapp2.RequestHandler):
     def get(self):
-        user = users.get_current_user()
-        if user:
-            if users.is_current_user_admin():
-                template = JINJA_ENVIRONMENT.get_template('admin.html')
-                self.response.write(template.render())
-            else:
-                self.response.write('You are not an administrator.')
+        template = JINJA_ENVIRONMENT.get_template('admin.html')
+        self.response.write(template.render())
+    
+    def post(self):
+        username = self.request.get('username')
+        password = self.request.get('password')
+
+        if (username == 'admin' and password == 'password'):
+            self.redirect('/confirm', {'user_param': username})
         else:
-            self.response.write('You are not logged in.')
+            self.redirect('/admin')
+        
+
+
+class ConfirmPage(webapp2.RequestHandler):
+
+    def get(self):
+        user_param = self.request.get('user_param')
+
+        #if (user_param == 'admin'):
+        to_confirm = Startup.query(Startup.accettato == 0)
+        to_confirm_list = to_confirm.fetch()
+        confirm_param = {
+            'to_confirm_list': to_confirm_list,
+        }
+        template = JINJA_ENVIRONMENT.get_template('confirm.html')
+        self.response.write(template.render(confirm_param))
+
+    def post(self):
+        start_id = self.request.get('id')
+        start_type = self.request.get('type')
+
+        if start_type == 'ok':
+            startup_key = Startup.query(Startup.email == start_id)
+            startup_conf = startup_key.fetch()[0]
+            startup_conf.accettato = 1
+            startup_conf.put()
 
 
 class FirmaStartup(webapp2.RequestHandler):
     def post(self):
         #if users.get_current_user():
-        startup_add = Startup(accettato=1)
+        startup_add = Startup(accettato=0)
         startup_add.nome = self.request.get('name')
         startup_add.email = self.request.get('email')
         startup_add.website = self.request.get('website')
+        avatar = self.request.get('avatar')
+        avatar = images.resize(avatar, 70, 70)
+        startup_add.avatar = avatar
         startup_add.put()
 
         #query_params = {'guestbook_name': guestbook_name}
         #self.redirect('/?' + urllib.urlencode(query_params))
         self.response.write("Richiesta aggiunta! Torna alla pagina precedente")
 
+class Image(webapp2.RequestHandler):
+    def get(self):
+        startup_key = ndb.Key(urlsafe=self.request.get('img_id'))
+        startup = startup_key.get()
+        if startup.avatar:
+            self.response.headers['Content-Type'] = 'image/png'
+            self.response.out.write(startup.avatar)
+        else:
+            self.response.out.write('No image')
 
 # [START app]
 app = webapp2.WSGIApplication([
     ('/', MainPage),
     ('/firma', FirmaStartup),
+    ('/image', Image),
     ('/admin', AdminPage),
+    ('/confirm', ConfirmPage)
 ], debug=True)
 # [END app]

@@ -54,6 +54,8 @@
     if (response.status === 'connected') {
       // Logged into your app and Facebook.
       testAPI();
+      document.getElementById('fb_log').innerHTML = '<span class="fa fa-facebook"></span> Click to log out'
+      document.getElementById('fb_log').setAttribute("onclick", "FB.logout()");
     } else if (response.status === 'not_authorized') {
       // The person is logged into Facebook, but not your app.
       document.getElementById('status').innerHTML = 'Please log ' +
@@ -154,6 +156,9 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
                         </button>
                         <a class="navbar-brand" href="#">
                             <img src="http://placehold.it/124x55" alt="logo">
@@ -166,6 +171,7 @@
                             <li><a href="#FIRMA">FIRMA! </a> </li>
                             <li><a href="#MANIFESTO">MANIFESTO </a> </li>
                             <li><a href="#SOSTENITORI">SOSTENITORI</a></li>
+                            <li><a href="#BACKERS">BACKERS</a></li>
                             <li><a href="#FIRMATO">HANNO FIRMATO</a> </li>
                             <li><a href="#DPIXEL">ABOUT</a> </li>
                         </ul>
@@ -345,13 +351,13 @@
                         <div class="name_error hide error">Please Enter your name</div>
                         <div class="email_error hide error">Please Enter your Email</div>
                         <div class="email_val_error hide error">Please Enter a Valid Email Address</div>
-                        <div class="message_error hide error">Please Enter Your Message</div>
+                        <div class="message_error hide error">Please Enter Your icon</div>
                     </div>
                     <div class="Sucess"></div>
                 <!-- END ERROR AND SUCCESS MESSAGE -->
 
                 <!-- FORM -->    
-                    <form role="form" action="/firma" method="post">
+                    <form role="form" action="/firma" method="post" enctype="multipart/form-data">
                         <div class="row">
                             <div class="col-md-4">
                                 <input type="text" class="form-control" id="name" name="name" placeholder="Name and Surname">
@@ -359,22 +365,24 @@
                                 <input type="text" class="form-control" id="website" name="website" placeholder="Website">
                             </div>
 
-                            <div class="col-md-8">
-                                <textarea class="form-control" id="avatar" rows="25" cols="10" placeholder="Upload your logo"></textarea>
+                            <div class="col-md-4">
+                                <label for="avatar">Upload your avatar:</label>
+                                <div class="form-control"><input type="file" name="avatar" class="form-control-file" placeholder="Upload your logo" id="avatar" /></div>
                                 <div><input type="submit" class="btn btn-default submit-btn form_submit" value="SIGN"></div>
                             </div>
                         </div>
                     </form>
                     <!-- END FORM --> 
                     <div class="section_title">
-                        <h2>Oppure firma con Facebook:</h2>
+                        <h2>Or sign with Facebook:</h2>
                         <!--<p><div class="fb-login-button" data-max-rows="1" data-size="large" data-show-faces="false" data-auto-logout-link="true"></div></p>-->
                         
                             <p>
-                                <a class="btn btn-block btn-social btn-facebook" onclick="FB.login()">
-                                <span class="fa fa-facebook"></span> Sign in with Facebook
+                                <a class="btn btn-block btn-social btn-facebook" id="fb_log" onclick="FB.login()">
+                                    <span class="fa fa-facebook"></span> Sign in with Facebook
                                 </a>
-                                <div id="status">
+                                <div id="status"></div>
+                                <a id="fb_logout" onclick="FB.logout()">Log out</a>
                             </p>
                     </div>
                 </div>
@@ -385,16 +393,63 @@
     <!-- END CONTACT -->
 
 <!-- =========================
-     HANNO FIRMATO
+     BACKERS
 ============================== -->
 
-    <section class="apps_screen firmato page" id="FIRMATO">
+    <section class="apps_screen firmato page" id="BACKERS">
         <div class="container">
             <div class="row">
                 <div class="col-md-10 col-md-offset-1">
                     <!-- FIRMATARI SECTION TITLE -->
                     <div class="section_title wow fadeIn" data-wow-duration="1s">
-                        <h2>Hanno già firmato</h2>
+                        <h2>{{startups_number}} backers</h2>
+                    </div>
+                    <!-- END FIRMATARI SECTION TITLE -->
+                </div>
+            </div>
+        </div>
+
+        <div class="feature_inner">
+            <div class="container">
+                <div class="row">
+
+                    <div class="thumbnails">
+                        {% for star in startup_da_visualizzare %}
+                            <div class="thumbnail">
+                                <img src="/image?img_id={{star.key.urlsafe()}}" alt="Element4" />
+                            </div>
+                        {% endfor %}
+<!--                         <script type="text/javascript">
+                            for (var i = 0; i < 10; i++) {
+                                document.write('<div class="thumbnail"><img src="http://placehold.it/70x70" alt="Element4" /></div>');
+                            }
+                        </script> -->
+                    </div>
+
+                    <div class="thumbnails">
+                        <script type="text/javascript">
+                            for (var i = 0; i < 6; i++) {
+                                document.write('<div class="thumbnail"><img src="http://placehold.it/70x70" alt="Element4" /></div>');
+                            }
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- END BACKERS SECTION -->
+
+<!-- =========================
+     HANNO FIRMATO
+============================== -->
+
+    <section class="contact firmato page" id="FIRMATO">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1">
+                    <!-- FIRMATARI SECTION TITLE -->
+                    <div class="section_title wow fadeIn" data-wow-duration="1s">
+                        <h2>{{fbusers_number}} hanno già firmato</h2>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.</p>
                     </div>
                     <!-- END FIRMATARI SECTION TITLE -->
@@ -407,19 +462,19 @@
                 <div class="row">
 
                     <div class="thumbnails">
-<!--                        {% for star in startup_da_visualizzare %}
-                            {{star.nome}}
-                        {% endfor %}-->
-                        <script type="text/javascript">
-                            for (var i = 0; i < 10; i++) {
-                                document.write('<div class="thumbnail"><img src="http://placehold.it/70x70" alt="Element4" /></div>');
-                            }
-                        </script>
+                        {% for fbuser in fbusers_da_visualizzare %}
+                        <div class="userfb">
+                            <div class="thumbnail">
+                                <img src="//graph.facebook.com/{{fbuser.fbid}}/picture">
+                            </div>
+                            <p>{{fbuser.nome}}</p>
+                        </div>
+                        {% endfor %}
                     </div>
 
                     <div class="thumbnails">
                         <script type="text/javascript">
-                            for (var i = 0; i < 10; i++) {
+                            for (var i = 0; i < 6; i++) {
                                 document.write('<div class="thumbnail"><img src="http://placehold.it/70x70" alt="Element4" /></div>');
                             }
                         </script>
@@ -431,7 +486,7 @@
     <!-- END FIRMATARI SECTION -->
 
 
-    <section class="about page" id="DPIXEL">
+    <section class="apps_screen page" id="DPIXEL">
         <div class="container">
             <div class="row">
                 <div class="col-md-10 col-md-offset-1">
@@ -444,7 +499,7 @@
 
             </div>
         </div>
-
+    </section>
 <!-- =========================
      FOOTER 
 ============================== -->

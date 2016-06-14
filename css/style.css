@@ -887,5 +887,16 @@ li {
     text-shadow: none;
 }
 
-.thumbnails {text-align: center;}
-.thumbnails .thumbnail {display: inline-block; margin: 0 5px;}
+.thumbnails {
+    text-align: center;
+}
+.thumbnails .userfb{
+    display: inline-block;
+    
+}
+.thumbnails .thumbnail {
+    display: inline-block;
+    margin: 20px 50px;
+}
+
+    
