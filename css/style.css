@@ -961,7 +961,7 @@ li {
     bottom: 0;
     right: 0;
     margin: auto;
-    background: #848484 url(img/link.png) no-repeat center 20%;
+    background: #848484 no-repeat center 20%;
     background-size:50px 50px;
     opacity:0;
     filter:alpha(opacity=0);/*For IE6 - IE8*/
@@ -1013,4 +1013,20 @@ li {
     #rig li {
         width:50%;
     }
+}
+
+.image_dichiar {
+    padding-left: 40px;
+    padding-right: 40px; 
+}
+.image_dichiar img{
+    align:center;
+}
+
+.image_dichiar p{
+    margin-top: 30px;
+    color: #333;
+    font-size: 18px;
+    line-height: 28px;
+    font-weight: 300;
 }

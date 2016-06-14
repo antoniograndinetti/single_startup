@@ -32,7 +32,7 @@ class FBUser(ndb.Model):
 
 class MainPage(webapp2.RequestHandler):
     def get(self):
-        startups = Startup.query().order(-Startup.date)
+        startups = Startup.query(Startup.accettato == 1).order(-Startup.date)
         startup_da_visualizzare = startups.fetch()
         startups_number = Startup.query().count()
 
@@ -125,7 +125,8 @@ class FirmaStartup(webapp2.RequestHandler):
         startup_add.avatar = avatar
         startup_add.put()
 
-        self.response.write("Richiesta aggiunta! Torna alla pagina precedente")
+        template = JINJA_ENVIRONMENT.get_template('redirect.html')
+        self.response.write(template.render())
 
 class Image(webapp2.RequestHandler):
     def get(self):

@@ -40,19 +40,21 @@
 </head>
 
 <body>
-    <h3>To confirm: </h3>
-    <hr>
-    <br>
-    <ul>
-        {% for conf in to_confirm_list %}
-            <li>Name: {{conf.nome}}, Email: {{conf.email}}, Website: {{conf.website}}</li><a id="accept{{conf.key.id()}}" class="btn" onclick="accept('{{conf.email}}')">Accept</a> <a id="remove{{conf.key.id()}}" class="btn" onclick="rem('{{conf.email}}')">Delete</a>
-            <hr>
-        {% endfor %}
-    </ul>
-
+    <div class="container">
+        <h3>To confirm: </h3>
+        <hr>
+        <br>
+        <ul>
+            {% for conf in to_confirm_list %}
+                <li>Name: {{conf.nome}}, Email: {{conf.email}}, Website: {{conf.website}}</li><a id="accept{{conf.key.id()}}" class="btn" onclick="accept('{{conf.email}}')">Accept</a> <a id="remove{{conf.key.id()}}" class="btn" onclick="rem('{{conf.email}}')">Delete</a>
+                <hr>
+            {% endfor %}
+        </ul>
+    </div>
+    
 <script type="text/javascript">
     function accept(id){
-        $.post("http://localhost:8080/confirm",
+        $.post("/confirm",
         {
           id: id,
           type: 'ok',
@@ -67,7 +69,7 @@
     }
 
     function rem(id){
-        $.post("http://localhost:8080/confirm",
+        $.post("/confirm",
         {
           id: id,
           type: 'ko',

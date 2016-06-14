@@ -56,16 +56,16 @@
       testAPI();
       document.getElementById('fb_log').innerHTML = '<span class="fa fa-facebook"></span> Click to log out'
       document.getElementById('fb_log').setAttribute("onclick", "FB.logout()");
-    } else if (response.status === 'not_authorized') {
-      // The person is logged into Facebook, but not your app.
-      document.getElementById('status').innerHTML = 'Please log ' +
-        'into this app.';
-    } else {
-      // The person is not logged into Facebook, so we're not sure if
-      // they are logged into this app or not.
-      document.getElementById('status').innerHTML = 'Please log ' +
-        'into Facebook.';
-    }
+    // } else if (response.status === 'not_authorized') {
+    //   // The person is logged into Facebook, but not your app.
+    //   document.getElementById('status').innerHTML = 'Please log ' +
+    //     'into this app.';
+    // } else {
+    //   // The person is not logged into Facebook, so we're not sure if
+    //   // they are logged into this app or not.
+    //   document.getElementById('status').innerHTML = 'Please log ' +
+    //     'into Facebook.';
+     }
   }
 
   // This function is called when someone finishes with the Login
@@ -119,13 +119,13 @@
     console.log('Welcome!  Fetching your information.... ');
     FB.api('/me', function(response) {
       console.log('Successful login for: ' + response.id);
-      $.post("http://localhost:8080/",
+      $.post("/",
         {
           fbID: response.id,
           name: response.name,
         });
-      document.getElementById('status').innerHTML =
-        'Thanks for logging in, ' + response.name + '!';
+      // document.getElementById('status').innerHTML =
+      //   'Thanks for logging in, ' + response.name + '!';
     });
   }
 </script>
@@ -153,9 +153,6 @@
                     <div class="navbar-header">
                         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                             <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
@@ -220,7 +217,7 @@
      MANIFESTO
 ============================== -->
 
-    <section class="about page" id="MANIFESTO">
+    <section class="apps_screen page" id="MANIFESTO">
         <div class="container">
             <div class="row">
                 <div class="col-md-10 col-md-offset-1">
@@ -267,39 +264,34 @@
 <!-- =========================
      DICHIARAZIONI
 ============================== -->
-<!-- 
+
     <section class="contact page" id="DICHIARAZIONI">
         <div class="section_overlay">
             <div class="contact_form wow bounceIn">
                 <div class="container">
 
-                    <div class="row">                
-                      <div class="col-md-1">
-
+                    <div class="image_dichiar">
+                      <div class="imgContainer" style="float:left; width:45%;">
+                          <img src="http://placehold.it/250x250" height="200" width="200"/>
+                          <blockquote>
+                            <p>For 50 years, WWF has been protecting the future of nature. The world's leading conservation organization, WWF works in 100 countries and is supported by 1.2 million members in the United States and close to 5 million globally.</p>
+                            <footer>From WWF's website</footer>
+                          </blockquote>
                       </div>
-                      <div class="col-md-4">
-                        <div class="item">
-                        <a href="images/screens/iPhone04.png" rel="prettyPhoto[pp_gal]"><img src="http://placehold.it/134x134" width="60" height="60" alt="APPS SCREEN" /></a>
-                        </div>
+                      <div class="imgContainer" style="float:right; width:45%;">
+                          <img src="http://placehold.it/250x250"/ height="200" width="200"/>
+                          <blockquote class="blockquote-reverse">
+                            <p>For 50 years, WWF has been protecting the future of nature. The world's leading conservation organization, WWF works in 100 countries and is supported by 1.2 million members in the United States and close to 5 million globally.</p>
+                            <footer>From WWF's website</footer>
+                          </blockquote>
                       </div>
-                      <div class="col-md-2">
-
-                      </div>
-                      <div class="col-md-4">
-                        <div class="item">
-                        <a href="images/screens/iPhone04.png" rel="prettyPhoto[pp_gal]"><img src="http://placehold.it/134x134" width="60" height="60" alt="APPS SCREEN" /></a>
-                        </div>
-                      </div>
-                      <div class="col-md-1">
-
-                      </div>
-                    </div>
+                  </div>
                 </div>
             </div>
 
         </div>
     </section>
- -->
+
 <!-- =========================
      SOSTENITORI
 ============================== -->
@@ -321,84 +313,84 @@
               
             <ul id="rig">
                 <li>
-                    <a class="rig-cell" href="#">
+                    <a class="rig-cell">
                         <img class="rig-img" src="http://placehold.it/130x130">
                         <span class="rig-overlay"></span>
                         <span class="rig-text">Lorem Ipsum Dolor</span>
                     </a>
                 </li>
                 <li>
-                    <a class="rig-cell" href="#">
+                    <a class="rig-cell">
                         <img class="rig-img" src="http://placehold.it/130x130">
                         <span class="rig-overlay"></span>
                         <span class="rig-text">Consectetur Adipiscing</span>
                     </a>
                 </li>
                 <li>
-                    <a class="rig-cell" href="#">
+                    <a class="rig-cell">
                         <img class="rig-img" src="http://placehold.it/130x130">
                         <span class="rig-overlay"></span>
                         <span class="rig-text">Vivamus ut Felis</span>
                     </a>
                 </li>
                 <li>
-                    <a class="rig-cell" href="#">
+                    <a class="rig-cell">
                         <img class="rig-img" src="http://placehold.it/130x130">
                         <span class="rig-overlay"></span>
                         <span class="rig-text">Curabitur tempus</span>
                     </a>
                 </li>
                 <li>
-                    <a class="rig-cell" href="#">
+                    <a class="rig-cell">
                         <img class="rig-img" src="http://placehold.it/130x130">
                         <span class="rig-overlay"></span>
                         <span class="rig-text">Sed et nunc luctus</span>
                     </a>
                 </li>
                 <li>
-                    <a class="rig-cell" href="#">
+                    <a class="rig-cell">
                         <img class="rig-img" src="http://placehold.it/130x130">
                         <span class="rig-overlay"></span>
                         <span class="rig-text">Suspendisse tellus</span>
                     </a>
                 </li>
                 <li>
-                    <a class="rig-cell" href="#">
+                    <a class="rig-cell">
                         <img class="rig-img" src="http://placehold.it/130x130">
                         <span class="rig-overlay"></span>
                         <span class="rig-text">pellentesque odio</span>
                     </a>
                 </li>
                 <li>
-                    <a class="rig-cell" href="#">
+                    <a class="rig-cell">
                         <img class="rig-img" src="http://placehold.it/130x130">
                         <span class="rig-overlay"></span>
                         <span class="rig-text">Nome</span>
                     </a>
                 </li>
                 <li>
-                    <a class="rig-cell" href="#">
+                    <a class="rig-cell">
                         <img class="rig-img" src="http://placehold.it/130x130">
                         <span class="rig-overlay"></span>
                         <span class="rig-text">Vestibulum ultricies</span>
                     </a>
                 </li>
                 <li>
-                    <a class="rig-cell" href="#">
+                    <a class="rig-cell">
                         <img class="rig-img" src="http://placehold.it/130x130">
                         <span class="rig-overlay"></span>
                         <span class="rig-text">quis interdum sapien</span>
                     </a>
                 </li>
                 <li>
-                    <a class="rig-cell" href="#">
+                    <a class="rig-cell">
                         <img class="rig-img" src="http://placehold.it/130x130">
                         <span class="rig-overlay"></span>
                         <span class="rig-text">Maecenas vitae</span>
                     </a>
                 </li>
                 <li>
-                    <a class="rig-cell" href="#">
+                    <a class="rig-cell">
                         <img class="rig-img" src="http://placehold.it/130x130">
                         <span class="rig-overlay"></span>
                         <span class="rig-text">Proin Scelerisque</span>
@@ -483,7 +475,7 @@
                 <div class="row">
 
                     <div class="thumbnails">
-                        {% set count = 1 %}
+                        {% set count = 0 %}
                         {% for star in startup_da_visualizzare %}
                             {% if count<6 %}
                             <div class="thumbnail">
@@ -496,11 +488,6 @@
                                 <div class="thumbnails">
                             {% endif %}
                         {% endfor %}
-<!--                         <script type="text/javascript">
-                            for (var i = 0; i < 10; i++) {
-                                document.write('<div class="thumbnail"><img src="http://placehold.it/70x70" alt="Element4" /></div>');
-                            }
-                        </script> -->
                     </div>
 
 <!--                     <div class="thumbnails">
@@ -537,24 +524,23 @@
         <div class="feature_inner">
             <div class="container">
                 <div class="row">
-
                     <div class="thumbnails">
+                        {% set count = 0 %}
                         {% for fbuser in fbusers_da_visualizzare %}
-                        <div class="userfb">
-                            <div class="thumbnail">
-                                <img src="//graph.facebook.com/{{fbuser.fbid}}/picture">
-                            </div>
-                            <p>{{fbuser.nome}}</p>
-                        </div>
+                            {% if count<6 %}
+                              <div class="userfb">
+                                <div class="thumbnail">
+                                  <img src="//graph.facebook.com/{{fbuser.fbid}}/picture">
+                                </div>
+                                <p>{{fbuser.nome}}</p>
+                              </div>
+                              {% set count = count + 1 %}
+                            {% else %}
+                              {% set count = 0 %}
+                              </div>
+                              <div class="thumbnails">
+                            {% endif %}
                         {% endfor %}
-                    </div>
-
-                    <div class="thumbnails">
-                        <script type="text/javascript">
-                            for (var i = 0; i < 6; i++) {
-                                document.write('<div class="thumbnail"><img src="http://placehold.it/70x70" alt="Element4" /></div>');
-                            }
-                        </script>
                     </div>
                 </div>
             </div>
@@ -634,16 +620,16 @@
               testAPI();
               document.getElementById('fb_log').innerHTML = '<span class="fa fa-facebook"></span> Click to log out'
               document.getElementById('fb_log').setAttribute("onclick", "log_user_out()");
-            } else if (response.status === 'not_authorized') {
-              // The person is logged into Facebook, but not your app.
-              document.getElementById('status').innerHTML = 'Please log ' + 'into this app.';
-            } else {
-              // The person is not logged into Facebook, so we're not sure if
-              // they are logged into this app or not.
-              document.getElementById('status').innerHTML = 'Please log ' +
-                'into Facebook.';
-            }
-        });
+            // } else if (response.status === 'not_authorized') {
+            //   // The person is logged into Facebook, but not your app.
+            //   document.getElementById('status').innerHTML = 'Please log ' + 'into this app.';
+            // } else {
+            //   // The person is not logged into Facebook, so we're not sure if
+            //   // they are logged into this app or not.
+            //   document.getElementById('status').innerHTML = 'Please log ' +
+            //     'into Facebook.';
+            // }
+        }});
     }
 
     function log_user_out(){
