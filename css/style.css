@@ -12,7 +12,7 @@ p {
     font-size: 14px;
 }
 /*---------------------------------------
-   COMMON STYLES             
+   COMMON STYLES
 -----------------------------------------*/
 
 .section_title {
@@ -27,6 +27,11 @@ p {
     font-size: 30px;
     font-weight: 400;
 }
+
+.section_title h4 {
+  padding: 30px 0px;
+}
+
 .section_title h2:after {
     content: "";
     position: absolute;
@@ -51,8 +56,12 @@ p {
     background-repeat: no-repeat;
     background-size: cover;
 }
+
+.about_section p {
+  text-align: left;
+}
 /*---------------------------------------
-   SECTION FIRMA              
+   SECTION FIRMA
 -----------------------------------------*/
 /*menu*/
 
@@ -214,7 +223,7 @@ tuor:visited {
 
 
 /*---------------------------------------
-   SECTION MANIFESTO              
+   SECTION MANIFESTO
 -----------------------------------------*/
 
 
@@ -289,7 +298,7 @@ tuor:visited {
 }
 
 /*---------------------------------------
-   SECTION TESTIMONIAL              
+   SECTION TESTIMONIAL
 -----------------------------------------*/
 
 #owl-demo .item {
@@ -357,7 +366,7 @@ div.carousel-inner .item img {
     background: #ffff00;
 }
 /*---------------------------------------
-   SECTION FEATURES              
+   SECTION FEATURES
 -----------------------------------------*/
 
 .features {
@@ -462,7 +471,7 @@ div.carousel-inner .item img {
 
 
 /*---------------------------------------
-   SECTION CALL TO ACTION              
+   SECTION CALL TO ACTION
 -----------------------------------------*/
 
 .call_to_action {
@@ -496,7 +505,7 @@ div.carousel-inner .item img {
 }
 
 /*---------------------------------------
-   SECTION APPS SCREEN             
+   SECTION APPS SCREEN
 -----------------------------------------*/
 
 .apps_screen {
@@ -526,7 +535,7 @@ div.carousel-inner .item img {
 }
 
 /*---------------------------------------
-   SECTION DOWNLOAD              
+   SECTION DOWNLOAD
 -----------------------------------------*/
 
 .download {
@@ -608,7 +617,7 @@ div.carousel-inner .item img {
     border-right: 1px solid #0F1217;
 }
 /*---------------------------------------
-   SECTION CONTACT              
+   SECTION CONTACT
 -----------------------------------------*/
 
 .contact {
@@ -639,7 +648,7 @@ div.carousel-inner .item img {
     -moz-transition: all 1s;
     -o-transition: all 1s;
     transition: all 1s;
-    outline: 0px !important;   
+    outline: 0px !important;
 
 }
 .contact_form .form-control:focus {
@@ -653,12 +662,12 @@ div.carousel-inner .item img {
 }
 .form-control:-moz-placeholder {
     /* Firefox 18- */
-    
+
     color: red;
 }
 .form-control:-moz-placeholder {
     /* Firefox 19+ */
-    
+
     color: red;
 }
 .form-control:-ms-input-placeholder {
@@ -754,7 +763,7 @@ div.carousel-inner .item img {
     resize: none;
 }
 /*---------------------------------------
-   SECTION FOOTER              
+   SECTION FOOTER
 -----------------------------------------*/
 
 .copyright {
@@ -835,7 +844,7 @@ select:-webkit-autofill {
     -webkit-animation: bouncedelay 1.4s infinite ease-in-out;
     animation: bouncedelay 1.4s infinite ease-in-out;
     /* Prevent first frame from flickering when animation starts */
-    
+
     -webkit-animation-fill-mode: both;
     animation-fill-mode: both;
 }
@@ -893,10 +902,115 @@ li {
 }
 .thumbnails .userfb{
     display: inline-block;
-    
+
 }
 .thumbnails .thumbnail {
     display: inline-block;
     margin: 20px 50px;
 }
-    
+
+
+#rig {
+    max-width:900px;
+    margin:0 auto; /*center aligned*/
+    padding:0;
+    font-size:0; /* Remember to change it back to normal font size if have captions */
+    list-style:none;
+    /*background-color:#000;*/
+}
+#rig li {
+    display: inline-block;
+    *display:inline;/*for IE6 - IE7*/
+    width:25%;
+    vertical-align:middle;
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+        
+/* The wrapper for each item */
+.rig-cell {
+    /*margin:12px;
+    box-shadow:0 0 6px rgba(0,0,0,0.3);*/
+    display:block;
+    position: relative;
+    overflow:hidden;
+    padding: 5px;
+}
+        
+/* If have the image layer */
+.rig-img {
+    display:block;
+    width: 100%;
+    height: auto;
+    border:none;
+    transform:scale(1);
+    transition:all 1s;
+}
+
+#rig li:hover .rig-img {
+    transform:scale(1.05);
+}
+        
+/* If have the overlay layer */
+.rig-overlay {
+    position: absolute;
+    display:block;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    background: #848484 url(img/link.png) no-repeat center 20%;
+    background-size:50px 50px;
+    opacity:0;
+    filter:alpha(opacity=0);/*For IE6 - IE8*/
+    transition:all 0.6s;
+}
+#rig li:hover .rig-overlay {
+    opacity:0.8;
+}
+
+/* If have captions */
+.rig-text {
+    display:block;
+    padding:0 30px;
+    box-sizing:border-box;
+    position:absolute;
+    left:0;
+    width:100%;
+    text-align:center;
+    text-transform:capitalize;
+    font-size:18px;
+    font-weight:bold;
+    font-family: 'Oswald', sans-serif;
+    font-weight:normal!important;
+    top:40%;
+    color:white;
+    opacity:0;
+    filter:alpha(opacity=0);/*For older IE*/
+    transform:translateY(-20px);
+    transition:all .3s;
+}
+#rig li:hover .rig-text {
+    transform:translateY(0px);
+    opacity:0.9;
+}
+
+@media (max-width: 9000px) {
+    #rig li {
+        width:25%;
+    }
+}
+
+@media (max-width: 700px) {
+    #rig li {
+        width:33.33%;
+    }
+}
+
+@media (max-width: 550px) {
+    #rig li {
+        width:50%;
+    }
+}
