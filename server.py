@@ -2,6 +2,7 @@
 
 import os
 import urllib
+import json
 
 from google.appengine.api import users
 from google.appengine.api import images
@@ -32,7 +33,7 @@ class FBUser(ndb.Model):
 class MainPage(webapp2.RequestHandler):
     def get(self):
         startups = Startup.query().order(-Startup.date)
-        startup_da_visualizzare = startups.fetch(10)
+        startup_da_visualizzare = startups.fetch()
         startups_number = Startup.query().count()
 
         fbusers = FBUser.query().order(-Startup.date)
@@ -96,10 +97,23 @@ class ConfirmPage(webapp2.RequestHandler):
             startup_key = Startup.query(Startup.email == start_id)
             startup_conf = startup_key.fetch()[0]
             startup_conf.accettato = 1
+            ret = startup_conf.key.id()
             startup_conf.put()
+            self.response.out.write(ret)
+        elif start_type == 'ko':
+            startup_key = Startup.query(Startup.email == start_id)
+            startup_conf = startup_key.fetch()[0]
+            ret = startup_conf.key.id()
+            startup_conf.key.delete()
+            self.response.out.write(ret)
+
 
 
 class FirmaStartup(webapp2.RequestHandler):
+    def get(self):
+        template = JINJA_ENVIRONMENT.get_template('submit_backers.html')
+        self.response.write(template.render())
+
     def post(self):
         #if users.get_current_user():
         startup_add = Startup(accettato=0)
@@ -111,8 +125,6 @@ class FirmaStartup(webapp2.RequestHandler):
         startup_add.avatar = avatar
         startup_add.put()
 
-        #query_params = {'guestbook_name': guestbook_name}
-        #self.redirect('/?' + urllib.urlencode(query_params))
         self.response.write("Richiesta aggiunta! Torna alla pagina precedente")
 
 class Image(webapp2.RequestHandler):

@@ -40,11 +40,13 @@
 </head>
 
 <body>
-    <div>To confirm: </div>
-    {{user}}
+    <h3>To confirm: </h3>
+    <hr>
+    <br>
     <ul>
         {% for conf in to_confirm_list %}
-            <li>Name: {{conf.nome}}, Email: {{conf.email}}, Website: {{conf.website}}</li><a onclick="accept('{{conf.email}}')">Accept</a> <a onclick="remove('{{conf.email}}')">Delete</a>
+            <li>Name: {{conf.nome}}, Email: {{conf.email}}, Website: {{conf.website}}</li><a id="accept{{conf.key.id()}}" class="btn" onclick="accept('{{conf.email}}')">Accept</a> <a id="remove{{conf.key.id()}}" class="btn" onclick="rem('{{conf.email}}')">Delete</a>
+            <hr>
         {% endfor %}
     </ul>
 
@@ -54,14 +56,28 @@
         {
           id: id,
           type: 'ok',
+        }, function(id){
+            acc = "#accept"+id
+            rem = "#remove"+id
+            $(acc).attr("class", "btn disabled");
+            $(acc).attr("onclick", "return false");
+            $(rem).attr("class", "btn disabled");
+            $(rem).attr("onclick", "return false");
         });
     }
 
-    function remove(id){
+    function rem(id){
         $.post("http://localhost:8080/confirm",
         {
           id: id,
           type: 'ko',
+        }, function(id){
+            acc = "#accept"+id
+            rem = "#remove"+id
+            $(acc).attr("class", "btn disabled");
+            $(acc).attr("onclick", "return false");
+            $(rem).attr("class", "btn disabled");
+            $(rem).attr("onclick", "return false");
         });
     }
 </script>

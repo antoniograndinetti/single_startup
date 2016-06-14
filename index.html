@@ -266,16 +266,8 @@
                             </div>
                             <!-- END SINGLE DESC -->
 
+                            <button class="btn btn-default submit-btn form_submit" type="submit" onclick="window.open('file/Single_Startup Market_Draft_v3.docx')">Download!</button>                            
 
-                            <!-- SINGLE DESC -->
-                            <div class="single_about_area fadeInUp wow" data-wow-duration=".5s" data-wow-delay="1.5s">
-                                <!-- ICON -->
-                                <div><i class="pe-7s-target"></i></div>
-                                <!-- HEADING DESCRIPTION -->
-                                <h3>Lorem ipsum dolor sit amet</h3>
-                                <p>Cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit.</p>
-                            </div>
-                            <!-- END SINGLE DESC -->
                         </div>
                     </div>
                 </div>
@@ -337,7 +329,7 @@
                 <div class="col-md-10 col-md-offset-1 wow bounceIn">
                     <!-- Start Contact Section Title-->
                     <div class="section_title">
-                        <h2>Sign with your Startup</h2>
+                        <h2>Sign it</h2>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.</p>
                     </div>
                 </div>
@@ -346,44 +338,32 @@
             <div class="contact_form wow bounceIn">
                 <div class="container">
 
-                <!-- START ERROR AND SUCCESS MESSAGE -->
-                    <div class="form_error text-center">
-                        <div class="name_error hide error">Please Enter your name</div>
-                        <div class="email_error hide error">Please Enter your Email</div>
-                        <div class="email_val_error hide error">Please Enter a Valid Email Address</div>
-                        <div class="message_error hide error">Please Enter Your icon</div>
-                    </div>
-                    <div class="Sucess"></div>
-                <!-- END ERROR AND SUCCESS MESSAGE -->
-
+                    <div class="row">
                 <!-- FORM -->    
-                    <form role="form" action="/firma" method="post" enctype="multipart/form-data">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <input type="text" class="form-control" id="name" name="name" placeholder="Name and Surname">
-                                <input type="email" class="form-control" id="email" name="email" placeholder="Email">
-                                <input type="text" class="form-control" id="website" name="website" placeholder="Website">
-                            </div>
-
-                            <div class="col-md-4">
-                                <label for="avatar">Upload your avatar:</label>
-                                <div class="form-control"><input type="file" name="avatar" class="form-control-file" placeholder="Upload your logo" id="avatar" /></div>
-                                <div><input type="submit" class="btn btn-default submit-btn form_submit" value="SIGN"></div>
-                            </div>
-                        </div>
-                    </form>
-                    <!-- END FORM --> 
-                    <div class="section_title">
-                        <h2>Or sign with Facebook:</h2>
-                        <!--<p><div class="fb-login-button" data-max-rows="1" data-size="large" data-show-faces="false" data-auto-logout-link="true"></div></p>-->
+                    <div class="col-md-1">
                         
+                    </div>
+                    <div class="col-md-4">
+                        <h3 style="padding-bottom:20px;" align="center">Sign with your startup:</h3>
+                        <form method="get" action="/firma">
+                            <button type="submit" class="btn btn-block submit-btn">Sign as a backer!</button>
+                        </form>
+                    </div>
+                    <div class="col-md-2">
+                        <h2 align="center">OR</h2>
+                    </div>
+                    <!-- END FORM --> 
+                    <div class="col-md-4">
+                        <h3 style="padding-bottom:20px;" align="center">Sign with Facebook:</h3>
+                        <!--<p><div class="fb-login-button" data-max-rows="1" data-size="large" data-show-faces="false" data-auto-logout-link="true"></div></p>-->               
                             <p>
-                                <a class="btn btn-block btn-social btn-facebook" id="fb_log" onclick="FB.login()">
+                                <a class="btn btn-block btn-social btn-facebook" id="fb_log" onclick="log_user_in()">
                                     <span class="fa fa-facebook"></span> Sign in with Facebook
                                 </a>
-                                <div id="status"></div>
-                                <a id="fb_logout" onclick="FB.logout()">Log out</a>
                             </p>
+                    </div>
+                    <div class="col-md-1">
+                        
                     </div>
                 </div>
             </div>
@@ -414,10 +394,18 @@
                 <div class="row">
 
                     <div class="thumbnails">
+                        {% set count = 1 %}
                         {% for star in startup_da_visualizzare %}
+                            {% if count<6 %}
                             <div class="thumbnail">
                                 <img src="/image?img_id={{star.key.urlsafe()}}" alt="Element4" />
                             </div>
+                            {% set count = count + 1 %}
+                            {% else %}
+                                {% set count = 0 %}
+                                </div>
+                                <div class="thumbnails">
+                            {% endif %}
                         {% endfor %}
 <!--                         <script type="text/javascript">
                             for (var i = 0; i < 10; i++) {
@@ -426,13 +414,13 @@
                         </script> -->
                     </div>
 
-                    <div class="thumbnails">
+<!--                     <div class="thumbnails">
                         <script type="text/javascript">
                             for (var i = 0; i < 6; i++) {
                                 document.write('<div class="thumbnail"><img src="http://placehold.it/70x70" alt="Element4" /></div>');
                             }
                         </script>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -529,7 +517,36 @@
 <!-- =========================
      SCRIPTS 
 ============================== -->
+<script type="text/javascript">
+    
+    function log_user_in(){
+        FB.login(function(response){
+            if (response.status === 'connected') {
+              // Logged into your app and Facebook.
+              testAPI();
+              document.getElementById('fb_log').innerHTML = '<span class="fa fa-facebook"></span> Click to log out'
+              document.getElementById('fb_log').setAttribute("onclick", "log_user_out()");
+            } else if (response.status === 'not_authorized') {
+              // The person is logged into Facebook, but not your app.
+              document.getElementById('status').innerHTML = 'Please log ' + 'into this app.';
+            } else {
+              // The person is not logged into Facebook, so we're not sure if
+              // they are logged into this app or not.
+              document.getElementById('status').innerHTML = 'Please log ' +
+                'into Facebook.';
+            }
+        });
+    }
 
+    function log_user_out(){
+        FB.logout(function(response){
+              testAPI();
+              document.getElementById('fb_log').innerHTML = '<span class="fa fa-facebook"></span> Sign in with Facebook'
+              document.getElementById('fb_log').setAttribute("onclick", "log_user_in()");
+           
+        });
+  }
+</script>
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/owl.carousel.js"></script>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+{% autoescape true %}
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Single Startup Market</title>
+    <!-- Google Font -->
+    <link href='https://fonts.googleapis.com/css?family=Raleway:500,600,700,800,900,400,300' rel='stylesheet' type='text/css'>
+
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,900,300italic,400italic' rel='stylesheet' type='text/css'>
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Owl Carousel Assets -->
+    <link href="css/owl.carousel.css" rel="stylesheet">
+    <link href="css/owl.theme.css" rel="stylesheet">
+
+    <!-- Pixeden Icon Font -->
+    <link rel="stylesheet" href="css/Pe-icon-7-stroke.css">
+
+    <!-- Font Awesome -->
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- PrettyPhoto -->
+    <link href="css/prettyPhoto.css" rel="stylesheet">
+    
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+
+    <!-- Style -->
+    <link href="css/style.css" rel="stylesheet">
+
+    <link href="css/animate.css" rel="stylesheet">
+    <!-- Responsive CSS -->
+    <link href="css/responsive.css" rel="stylesheet">
+
+</head>
+
+<body>
+    <section class="contact page" id="FIRMABACKERS">
+        <div class="section_overlay">
+            <div class="container">
+                <div class="col-md-10 col-md-offset-1 wow bounceIn">
+                    <!-- Start Contact Section Title-->
+                    <div class="section_title" style="padding-top:45px;">
+                        <h2>Sign as a backer</h2>
+
+                    </div>
+                </div>
+            </div>
+            <div class="contact_form wow bounceIn">
+                <div class="container">
+
+                <!-- START ERROR AND SUCCESS MESSAGE -->
+                    <div class="form_error text-center">
+                        <div class="name_error hide error">Please Enter your name</div>
+                        <div class="email_error hide error">Please Enter your Email</div>
+                        <div class="email_val_error hide error">Please Enter a Valid Email Address</div>
+                        <div class="message_error hide error">Please Enter Your icon</div>
+                    </div>
+                    <div class="Sucess"></div>
+                        <!-- END ERROR AND SUCCESS MESSAGE -->
+                    <div class="row">
+                        <div class="col-md-4">
+                        
+                        </div>
+                        <div class="col-md-4">
+                        <form role="form" action="/firma" method="post" enctype="multipart/form-data">
+
+                            <input type="text" class="form-control" id="name" name="name" placeholder="Name and Surname">
+                            <input type="email" class="form-control" id="email" name="email" placeholder="Email">
+                            <input type="text" class="form-control" id="website" name="website" placeholder="Website">
+                            <!-- <label for="avatar">Upload your avatar:</label> -->
+                            <div class="form-control"><input type="file" name="avatar" class="form-control-file" placeholder="Upload your logo" id="avatar" /></div>
+                            <div><input type="submit" class="btn btn-default submit-btn form_submit" value="SIGN"></div>
+
+                        </form>
+
+                        </div>
+
+                        <div class="col-md-4">
+                        
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+<!-- =========================
+     FOOTER 
+============================== -->
+
+    <section class="copyright">
+        <h2></h2>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="copy_right_text">
+                    <!-- COPYRIGHT TEXT -->
+                        <p>Copyright &copy; 2016 <a href="">AAA</a> <span>By </span><a href="#">AAA</a></p>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="scroll_top">
+                        <a href="#FIRMA"><i class="fa fa-angle-up"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- END FOOTER -->
+    <script type="text/javascript">
+
+    </script>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/owl.carousel.js"></script>
+    <script src="js/jquery.fitvids.js"></script>
+    <script src="js/smoothscroll.js"></script>
+    <script src="js/jquery.parallax-1.1.3.js"></script>
+    <script src="js/jquery.prettyPhoto.js"></script>
+    <script src="js/jquery.ajaxchimp.min.js"></script>
+    <script src="js/jquery.ajaxchimp.langs.js"></script>
+    <script src="js/wow.min.js"></script>
+    <script src="js/waypoints.min.js"></script>
+    <script src="js/jquery.counterup.min.js"></script>
+    <script src="js/script.js"></script>
+
+</body>
+</html>
+{% endautoescape %}
