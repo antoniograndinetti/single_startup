@@ -20,6 +20,7 @@ JINJA_ENVIRONMENT = jinja2.Environment(
 class Startup(ndb.Model):
     nome = ndb.StringProperty(indexed=False)
     email = ndb.StringProperty()
+    startup_name = ndb.StringProperty(indexed=False)
     website = ndb.StringProperty(indexed=False)
     accettato = ndb.IntegerProperty()
     avatar = ndb.BlobProperty()
@@ -78,16 +79,34 @@ class AdminPage(webapp2.RequestHandler):
 class ConfirmPage(webapp2.RequestHandler):
 
     def get(self):
-        user_param = self.request.get('user_param')
+        #user_param = self.request.get('user_param')
 
         #if (user_param == 'admin'):
-        to_confirm = Startup.query(Startup.accettato == 0)
-        to_confirm_list = to_confirm.fetch()
-        confirm_param = {
-            'to_confirm_list': to_confirm_list,
-        }
-        template = JINJA_ENVIRONMENT.get_template('confirm.html')
-        self.response.write(template.render(confirm_param))
+        user = users.get_current_user()
+        if user:
+            if users.is_current_user_admin():
+                logout_url = users.create_logout_url(self.request.uri)
+                logout = 'Welcome! (<a href="{}">sign out</a>)'.format(logout_url)
+
+                to_confirm = Startup.query(Startup.accettato == 0)
+                to_confirm_list = to_confirm.fetch()
+                confirm_param = {
+                    'to_confirm_list': to_confirm_list,
+                    'logout': logout,
+                }
+                template = JINJA_ENVIRONMENT.get_template('confirm.html')
+                out = template.render(confirm_param)
+            else:
+                login_url = users.create_login_url(self.request.uri)
+                out = '<html><body><a style="color: #428bca; text-decoration: none;" href="{}">SIGN IN</a></body></html>'.format(login_url)
+
+        else:
+            login_url = users.create_login_url(self.request.uri)
+            out = '<html><body><a style="color: #428bca; text-decoration: none;" href="{}">SIGN IN</a></body></html>'.format(login_url)
+        
+        self.response.write(out)
+
+        
 
     def post(self):
         start_id = self.request.get('id')
@@ -119,6 +138,7 @@ class FirmaStartup(webapp2.RequestHandler):
         startup_add = Startup(accettato=0)
         startup_add.nome = self.request.get('name')
         startup_add.email = self.request.get('email')
+        startup_add.startup_name = self.request.get('startup_name')
         startup_add.website = self.request.get('website')
         avatar = self.request.get('avatar')
         avatar = images.resize(avatar, 70, 70)

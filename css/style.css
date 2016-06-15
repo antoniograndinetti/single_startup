@@ -11,6 +11,15 @@ p {
     font-family: 'Raleway', sans-serif;
     font-size: 14px;
 }
+
+blockquote p {
+    font-style: italic;
+}
+
+blockquote p a {
+    font-style: normal;
+}
+
 /*---------------------------------------
    COMMON STYLES
 -----------------------------------------*/
@@ -185,6 +194,7 @@ p {
     padding-bottom: 10px;
     padding-left: 30px;
     padding-right: 30px;
+    margin-left: 20px;
     font-size: 19px;
     text-transform: uppercase;
     border-radius: 3px;
