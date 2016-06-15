@@ -138,12 +138,24 @@ class Image(webapp2.RequestHandler):
         else:
             self.response.out.write('No image')
 
+class Quote1Page(webapp2.RequestHandler):
+    def get(self):
+        template = JINJA_ENVIRONMENT.get_template('quote1.html')
+        self.response.write(template.render())
+
+class Quote2Page(webapp2.RequestHandler):
+    def get(self):
+        template = JINJA_ENVIRONMENT.get_template('quote2.html')
+        self.response.write(template.render())
+
 # [START app]
 app = webapp2.WSGIApplication([
     ('/', MainPage),
     ('/firma', FirmaStartup),
     ('/image', Image),
     ('/admin', AdminPage),
-    ('/confirm', ConfirmPage)
+    ('/confirm', ConfirmPage),
+    ('/quote1', Quote1Page),
+    ('/quote2', Quote2Page)
 ], debug=True)
 # [END app]

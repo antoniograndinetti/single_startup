@@ -53,7 +53,6 @@
     // for FB.getLoginStatus().
     if (response.status === 'connected') {
       // Logged into your app and Facebook.
-      testAPI();
       document.getElementById('fb_log').innerHTML = '<span class="fa fa-facebook"></span> Click to log out'
       document.getElementById('fb_log').setAttribute("onclick", "FB.logout()");
     // } else if (response.status === 'not_authorized') {
@@ -269,39 +268,20 @@
         <div class="section_overlay">
             <div class="dichiar_row wow bounceIn">
                 <div class="container">
-
-<!--                     <div class="image_dichiar">
-                      <div class="imgContainer" style="float:left; width:45%;">
-                          <img class="center-block" src="http://placehold.it/250x250" height="200" width="200"/>
-                          <blockquote>
-                            <p>For 50 years, WWF has been protecting the future of nature. The world's leading conservation organization, WWF works in 100 countries and is supported by 1.2 million members in the United States and close to 5 million globally.</p>
-                            <footer>From WWF's website</footer>
-                          </blockquote>
-                      </div>
-                      <div class="imgContainer" style="float:right; width:45%;">
-                          <img class="center-block" src="http://placehold.it/250x250"/ height="200" width="200"/>
-                          <blockquote class="blockquote-reverse">
-                            <p>For 50 years, WWF has been protecting the future of nature. The world's leading conservation organization, WWF works in 100 countries and is supported by 1.2 million members in the United States and close to 5 million globally.</p>
-                            <footer>From WWF's website</footer>
-                          </blockquote>
-                      </div>
-                  </div> -->
                   <div class="row">
-
 
                         <img class="dichiar_element_img" src="http://placehold.it/250x250" height="250" width="250"/>
                         <blockquote class="dichiar_element">
-                          <p>For 50 years, WWF has been protecting the future of nature. The world's leading conservation organization, WWF works in 100 countries and is supported by 1.2 million members in the United States and close to 5 million globally.</p>
+                          <p>For 50 years, WWF has been protecting the future of nature. The world's leading conservation organization, WWF works in 100 countries and is supported by 1.2 million members in the United States. <a href="/quote1">READ MORE</a></p>
                           <footer>From WWF's website</footer>
                         </blockquote>
 
                         <blockquote class="blockquote-reverse dichiar_element">
-                          <p>For 50 years, WWF has been protecting the future of nature. The world's leading conservation organization, WWF works in 100 countries and is supported by 1.2 million members in the United States and close to 5 million globally.</p>
+                          <p>For 50 years, WWF has been protecting the future of nature. The world's leading conservation organization, WWF works in 100 countries and is supported by 1.2 million members in the United States. <a href="/quote2">READ MORE</a></p>
                           <footer>From WWF's website</footer>
                         </blockquote>
                         <img class="dichiar_element_img" src="http://placehold.it/250x250"/ height="250" width="250"/>
-
-
+                        
                   </div>
                 </div>
             </div>
