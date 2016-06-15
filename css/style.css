@@ -1015,12 +1015,29 @@ li {
     }
 }
 
-.image_dichiar {
-    padding-left: 40px;
-    padding-right: 40px; 
+.dichiar_row {
+    padding-top: 40px;
+    padding-bottom: 40px; 
+    padding-left: 10%;
 }
-.image_dichiar img{
-    align:center;
+
+.dichiar_element {
+    padding: 20px;
+    float: left;
+    width: 22%;
+}
+.dichiar_element_img {
+    padding: 20px;
+    float: left;
+    width: 22%;
+}
+@media (max-width: 550px) {
+    .dichiar_element {
+        width:100%;
+    }
+    .dichiar_element_img {
+        width:auto;
+    }
 }
 
 .image_dichiar p{
@@ -1029,4 +1046,9 @@ li {
     font-size: 18px;
     line-height: 28px;
     font-weight: 300;
+}
+
+.social_button {
+    padding: 20px;
+    float: left;
 }
