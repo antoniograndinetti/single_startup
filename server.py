@@ -10,6 +10,12 @@ from google.appengine.ext import ndb
 
 import jinja2
 import webapp2
+#import sendgrid
+
+# make a secure connection to SendGrid
+# SENDGRID_API_KEY = 'your-sendgrid-api-key'
+# SENDGRID_DOMAIN = 'your-sendgrid-domain'
+# sg = sendgrid.SendGridClient(SENDGRID_API_KEY)
 
 JINJA_ENVIRONMENT = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
@@ -145,8 +151,28 @@ class FirmaStartup(webapp2.RequestHandler):
         startup_add.avatar = avatar
         startup_add.put()
 
+        # # invio delle mail
+        # (status, msg) = send_message(self.request.get('email'))
+        # # inserire contatto admin
+        # (status, msg) = send_message(admin_mail)
+
         template = JINJA_ENVIRONMENT.get_template('redirect.html')
         self.response.write(template.render())
+
+
+# funzione per inviare la mail
+# def send_message(destinatario):
+#     # [START sendgrid-send]
+#     message = sendgrid.Mail()
+#     message.set_subject('message subject')
+#     message.set_html('<strong>HTML message body</strong>')
+#     message.set_text('plaintext message body')
+#     message.set_from('Example App Engine Sender <sendgrid@{}>'.format(
+#         SENDGRID_DOMAIN))
+#     message.add_to(destinatario)
+#     status, msg = sg.send(message)
+#     return (status, msg)
+  
 
 class Image(webapp2.RequestHandler):
     def get(self):
