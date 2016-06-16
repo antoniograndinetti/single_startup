@@ -915,7 +915,12 @@ li {
     display: inline-block;
 
 }
+
 .thumbnails .thumbnail {
+    display: inline-block;
+    margin: 20px 20px;
+}
+.userfb .thumbnail {
     display: inline-block;
     margin: 20px 50px;
 }

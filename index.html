@@ -64,8 +64,8 @@
     // for FB.getLoginStatus().
     if (response.status === 'connected') {
       // Logged into your app and Facebook.
-      document.getElementById('fb_log').innerHTML = '<span class="fa fa-facebook"></span> Click to log out'
-      document.getElementById('fb_log').setAttribute("onclick", "FB.logout()");
+      document.getElementById('fb_log').innerHTML = '<span class="fa fa-facebook"></span> Signed with Facebook!'
+      document.getElementById('fb_log').setAttribute("onclick", "return false");
     // } else if (response.status === 'not_authorized') {
     //   // The person is logged into Facebook, but not your app.
     //   document.getElementById('status').innerHTML = 'Please log ' +
@@ -575,10 +575,10 @@
                         <div class="section_title">
                           <h2 style="text-align:center;">Share:</h2>
                         </div>
-                            <div class="social_button"><div class="fb-share-button" data-href="https://singlestartup.appspot.com/" data-layout="button_count" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fsinglestartup.appspot.com%2F&amp;src=sdkpreparse">Share</a></div></div>
-                            <div class="social_button"><a href="https://twitter.com/share" class="twitter-share-button" data-url="https://singlestartup.appspot.com" data-text="Join the #EU #Single #Startup Market: #sign the call!">Tweet</a> <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script></div>
+                            <div class="social_button"><div class="fb-share-button" data-href="https://singlestartupmarket.eu/" data-layout="button_count" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fsinglestartupmarket.eu%2F&amp;src=sdkpreparse">Share</a></div></div>
+                            <div class="social_button"><a href="https://twitter.com/share" class="twitter-share-button" data-url="https://singlestartupmarket.eu" data-text="Join the #EU #Single #Startup Market: #sign the call!">Tweet</a> <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script></div>
                             <div class="social_button"><script src="https://platform.linkedin.com/in.js" type="text/javascript"> lang: en_US</script>
-                            <script type="IN/Share" data-url="https://singlestartup.appspot.com" data-counter="right"></script></div>
+                            <script type="IN/Share" data-url="https://singlestartupmarket.eu" data-counter="right"></script></div>
                       </div>
                       <div class="col-md-4">
                       </div>
@@ -615,15 +615,57 @@
                         {% for star in startup_da_visualizzare %}
                             {% if count<6 %}
                             <div class="thumbnail">
-                                <img src="/image?img_id={{star.key.urlsafe()}}" alt="Element4" />
+                                <a href="http://{{star.website}}">
+                                <img src="/image?img_id={{star.key.urlsafe()}}" width="120px" height="120px" /></a>
                             </div>
                             {% set count = count + 1 %}
                             {% else %}
                                 {% set count = 0 %}
                                 </div>
                                 <div class="thumbnails">
+                                  <div class="thumbnail">
+                                    <a href="http://{{star.website}}">
+                                    <img src="/image?img_id={{star.key.urlsafe()}}" width="120px" height="120px" /></a>
+                                  </div>
                             {% endif %}
                         {% endfor %}
+                    </div>
+                    
+<!--                     <ul id="rig_startup">
+                      {% set count = 0 %}
+                        {% for star in startup_da_visualizzare %}
+                          <li>
+                              <a class="rig-cell-startup">
+                                  <img class="rig-img-startup" src="/image?img_id={{star.key.urlsafe()}}">
+                              </a>
+                          </li>
+                      {% endfor %}
+                      </ul> -->
+                      
+  <!--                         {% set count = 0 %}
+                          {% for star in startup_da_visualizzare %}
+                              {% if count<6 %}
+                              
+                              <div class="col-md-2">
+                                <div class="thumbnail">
+                                  <img src="/image?img_id={{star.key.urlsafe()}}" width="120px" height="120px" />
+                                </div>
+                              </div>
+                              {% set count = count + 1 %}
+                              {% else %}
+                                  {% set count = 0 %}
+                                  </div>
+                                  <div class="clearfix visible-md"></div>
+                                    <div class="col-md-2">
+                                    <div class="thumbnail">
+                                      <img src="/image?img_id={{star.key.urlsafe()}}" width="120px" height="120px" />
+                                    </div>
+                                    </div>
+                                  
+                              {% endif %}
+                          {% endfor %}
+                      </div> -->
+                    
                     </div>
 
                 </div>
@@ -644,6 +686,7 @@
                     <div class="section_title wow fadeIn" data-wow-duration="1s">
                         <h2>{{fbusers_number}} backers</h2>
                         <!-- <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.</p> -->
+                        <p>Latest backers:</p>
                     </div>
                     <!-- END FIRMATARI SECTION TITLE -->
                 </div>
@@ -665,12 +708,48 @@
                               </div>
                               {% set count = count + 1 %}
                             {% else %}
-                              {% set count = 0 %}
+                              {% set count = 1 %}
                               </div>
                               <div class="thumbnails">
+                                <div class="userfb">
+                                  <div class="thumbnail">
+                                    <img src="//graph.facebook.com/{{fbuser.fbid}}/picture">
+                                  </div>
+                                  <p>{{fbuser.nome}}</p>
+                                </div>
                             {% endif %}
                         {% endfor %}
                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
+<!--                     <div class="row">
+                    
+                        {% set count = 0 %}
+                        {% for fbuser in fbusers_da_visualizzare %}
+                            {% if count<6 %}
+                              
+                                <div class="col-md-2">
+                                  <img src="//graph.facebook.com/{{fbuser.fbid}}/picture">
+                              
+                                <p>{{fbuser.nome}}</p>
+                              </div>
+                              {% set count = count + 1 %}
+                            {% else %}
+                              {% set count = 0 %}
+                              <div class="clearfix visible-md"></div>
+                              
+                                
+                                  <div class="col-md-2">
+                                    <img src="//graph.facebook.com/{{fbuser.fbid}}/picture">
+                                
+                                  <p>{{fbuser.nome}}</p>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div> -->
+
                 </div>
             </div>
         </div>
@@ -783,8 +862,8 @@
             if (response.status === 'connected') {
               // Logged into your app and Facebook.
               testAPI();
-              document.getElementById('fb_log').innerHTML = '<span class="fa fa-facebook"></span> Click to log out'
-              document.getElementById('fb_log').setAttribute("onclick", "log_user_out()");
+              document.getElementById('fb_log').innerHTML = '<span class="fa fa-facebook"></span> Signed with Facebook!'
+              document.getElementById('fb_log').setAttribute("onclick", "return false");
             // } else if (response.status === 'not_authorized') {
             //   // The person is logged into Facebook, but not your app.
             //   document.getElementById('status').innerHTML = 'Please log ' + 'into this app.';

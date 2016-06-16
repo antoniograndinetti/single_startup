@@ -40,10 +40,10 @@ class MainPage(webapp2.RequestHandler):
     def get(self):
         startups = Startup.query(Startup.accettato == 1).order(-Startup.date)
         startup_da_visualizzare = startups.fetch()
-        startups_number = Startup.query().count()
+        startups_number = Startup.query(Startup.accettato == 1).count()
 
         fbusers = FBUser.query().order(-Startup.date)
-        fbusers_da_visualizzare = fbusers.fetch(10)
+        fbusers_da_visualizzare = fbusers.fetch(18)
         fbusers_number = FBUser.query().count()
 
         params_value = {
@@ -160,14 +160,20 @@ class FirmaStartup(webapp2.RequestHandler):
         startup_add.startup_name = self.request.get('startup_name')
         startup_add.website = self.request.get('website')
         avatar = self.request.get('avatar')
-        avatar = images.resize(avatar, 70, 70)
+        avatar = images.resize(avatar, 150, 150)
         startup_add.avatar = avatar
         startup_add.put()
 
         # # invio delle mail
         # (status, msg) = send_message(self.request.get('email'))
         # inserire contatto admin
-        # (status, msg) = send_message("antoniograndinetti91@gmail.com")
+        #(status, msg) = send_message("antoniograndinetti91@gmail.com")
+        # from_email = Email("noreply@singlestartupmarket.eu")
+        # subject = "Hello World from the SendGrid Python Library"
+        # to_email = Email("antoniograndinetti91@gmail.com")
+        # content = Content("text/plain", "some text here")
+        # mail = Mail(from_email, subject, to_email, content)
+        # response = sg.client.mail.send.post(request_body=mail.get())
 
         template = JINJA_ENVIRONMENT.get_template('redirect.html')
         self.response.write(template.render())
