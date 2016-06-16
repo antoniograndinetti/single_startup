@@ -1029,18 +1029,18 @@ li {
 .dichiar_row {
     padding-top: 40px;
     padding-bottom: 40px;
-    padding-left: 10%;
+    /*padding-left: 10%;*/
 }
 
 .dichiar_element {
     padding: 20px;
     float: left;
-    width: 22%;
+    /*width: 22%;*/
 }
 .dichiar_element_img {
     padding: 20px;
     float: left;
-    width: 22%;
+    /*width: 22%;*/
 }
 @media (max-width: 550px) {
     .dichiar_element {
