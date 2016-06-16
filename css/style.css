@@ -69,6 +69,7 @@ blockquote p a {
 .about_section p {
   text-align: left;
 }
+
 /*---------------------------------------
    SECTION FIRMA
 -----------------------------------------*/
@@ -937,7 +938,7 @@ li {
     margin:0;
     padding:0;
 }
-        
+
 /* The wrapper for each item */
 .rig-cell {
     /*margin:12px;
@@ -947,7 +948,7 @@ li {
     overflow:hidden;
     padding: 5px;
 }
-        
+
 /* If have the image layer */
 .rig-img {
     display:block;
@@ -961,7 +962,7 @@ li {
 #rig li:hover .rig-img {
     transform:scale(1.05);
 }
-        
+
 /* If have the overlay layer */
 .rig-overlay {
     position: absolute;
@@ -1027,19 +1028,19 @@ li {
 
 .dichiar_row {
     padding-top: 40px;
-    padding-bottom: 40px; 
-    padding-left: 10%;
+    padding-bottom: 40px;
+    /*padding-left: 10%;*/
 }
 
 .dichiar_element {
     padding: 20px;
     float: left;
-    width: 22%;
+    /*width: 22%;*/
 }
 .dichiar_element_img {
     padding: 20px;
     float: left;
-    width: 22%;
+    /*width: 22%;*/
 }
 @media (max-width: 550px) {
     .dichiar_element {
