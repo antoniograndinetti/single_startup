@@ -481,6 +481,7 @@ div.carousel-inner .item img {
 }
 
 
+
 /*---------------------------------------
    SECTION CALL TO ACTION
 -----------------------------------------*/
@@ -908,6 +909,24 @@ li {
     text-shadow: none;
 }
 
+.image-thumb {
+  /*min-height: 200px;*/
+  margin-top: 20px;
+  margin-bottom: 20px;
+  background-color: #FAFAFA;
+}
+
+.vcenter {
+  display: inline-block;
+  vertical-align: middle;
+  float: none;
+  margin-left: -4px;
+}
+
+.image-thumb img {
+  margin: 0 auto;
+}
+
 .thumbnails {
     text-align: center;
 }
@@ -915,7 +934,12 @@ li {
     display: inline-block;
 
 }
+
 .thumbnails .thumbnail {
+    display: inline-block;
+    margin: 20px 20px;
+}
+.userfb .thumbnail {
     display: inline-block;
     margin: 20px 50px;
 }
