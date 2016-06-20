@@ -10,11 +10,11 @@ from google.appengine.ext import ndb
 
 import jinja2
 import webapp2
-# import sendgrid
-# from sendgrid.helpers.mail import *
+import sendgrid
+from sendgrid.helpers.mail import *
 
 # make a secure connection to SendGrid
-#sg = sendgrid.SendGridAPIClient(apikey=os.environ.get('SENDGRID_API_KEY'))
+sg = sendgrid.SendGridAPIClient(apikey=os.environ.get('SENDGRID_API_KEY'))
 
 JINJA_ENVIRONMENT = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
@@ -43,7 +43,7 @@ class MainPage(webapp2.RequestHandler):
         startups_number = Startup.query(Startup.accettato == 1).count()
 
         fbusers = FBUser.query().order(-Startup.date)
-        fbusers_da_visualizzare = fbusers.fetch(18)
+        fbusers_da_visualizzare = fbusers.fetch()
         fbusers_number = FBUser.query().count()
 
         params_value = {
@@ -65,9 +65,9 @@ class MainPage(webapp2.RequestHandler):
                 fbuser_add.put()
 
 
-# class AdminPage(webapp2.RequestHandler):
-#     def get(self):
-#         send_message("antoniograndinetti91@gmail.com")
+class AdminPage(webapp2.RequestHandler):
+    def get(self):
+        send_message("antoniograndinetti91@gmail.com")
 #         client = sendgrid.SendGridClient(SENDGRID_API_KEY)
 #         message = sendgrid.Mail()
 
@@ -92,6 +92,7 @@ class MainPage(webapp2.RequestHandler):
         #     self.redirect('/confirm', {'user_param': username})
         # else:
         #     self.redirect('/admin')
+
         
 
 
@@ -180,7 +181,7 @@ class FirmaStartup(webapp2.RequestHandler):
 
 
 # funzione per inviare la mail
-# def send_message(destinatario):
+def send_message(destinatario):
 # #     # [START sendgrid-send]
 # #     message = sendgrid.Mail()
 # #     message.set_subject('message subject')
@@ -191,12 +192,12 @@ class FirmaStartup(webapp2.RequestHandler):
 # #     message.add_to(destinatario)
 # #     status, msg = sg.send(message)
 # #     return (status, msg)
-#     from_email = Email("noreply@singlestartupmarket.eu")
-#     subject = "Hello World from the SendGrid Python Library"
-#     to_email = Email(destinatario)
-#     content = Content("text/plain", "some text here")
-#     mail = Mail(from_email, subject, to_email, content)
-#     response = sg.client.mail.send.post(request_body=mail.get())
+    from_email = Email("noreply@singlestartupmarket.eu")
+    subject = "Hello World from the SendGrid Python Library"
+    to_email = Email(destinatario)
+    content = Content("text/plain", "some text here")
+    mail = Mail(from_email, subject, to_email, content)
+    response = sg.client.mail.send.post(request_body=mail.get())
 
 
 class Image(webapp2.RequestHandler):
@@ -224,7 +225,7 @@ app = webapp2.WSGIApplication([
     ('/', MainPage),
     ('/firma', FirmaStartup),
     ('/image', Image),
-#    ('/admin', AdminPage),
+    ('/admin', AdminPage),
     ('/confirm', ConfirmPage),
     ('/quote1', Quote1Page),
     ('/quote2', Quote2Page)
