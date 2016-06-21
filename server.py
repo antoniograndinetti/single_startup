@@ -3,6 +3,7 @@
 import os
 import urllib
 import json
+import re
 
 from google.appengine.api import users
 from google.appengine.api import images
@@ -67,7 +68,24 @@ class MainPage(webapp2.RequestHandler):
 
 class AdminPage(webapp2.RequestHandler):
     def get(self):
-        send_message("antoniograndinetti91@gmail.com")
+		startups = Startup.query().order(-Startup.date)
+		startup_all = startups.fetch()
+		for start in startup_all:
+			res = re.match('http://(.*)', start.website)
+			res1 = re.match('https://(.*)', start.website)
+			if res == None:
+				if res1 == None:
+					pass
+				else:
+					start.website = res1.group(1)
+					start.put()
+			else:
+				start.website = res.group(1)
+				start.put()
+
+		self.response.write('Done!')
+
+#         send_message("antoniograndinetti91@gmail.com")
 #         client = sendgrid.SendGridClient(SENDGRID_API_KEY)
 #         message = sendgrid.Mail()
 
@@ -91,9 +109,7 @@ class AdminPage(webapp2.RequestHandler):
         # if (username == 'admin' and password == 'password'):
         #     self.redirect('/confirm', {'user_param': username})
         # else:
-        #     self.redirect('/admin')
-
-        
+        #     self.redirect('/admin')  
 
 
 class ConfirmPage(webapp2.RequestHandler):
@@ -160,6 +176,17 @@ class FirmaStartup(webapp2.RequestHandler):
         startup_add.email = self.request.get('email')
         startup_add.startup_name = self.request.get('startup_name')
         startup_add.website = self.request.get('website')
+        # site = self.request.get('website')
+        # res = re.match('http://(.*)', site)
+        # res1 = re.match('https://(.*)', site)
+        # if res == None:
+        # 	if res1 == None:
+        # 		startup_add.website = site
+        # 	else:
+        # 		startup_add.website = res1.group(1)
+        # else:
+        # 	startup_add.website = res.group(1)
+        
         avatar = self.request.get('avatar')
         avatar = images.resize(avatar, 150, 150)
         startup_add.avatar = avatar
