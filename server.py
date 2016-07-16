@@ -66,24 +66,24 @@ class MainPage(webapp2.RequestHandler):
                 fbuser_add.put()
 
 
-class AdminPage(webapp2.RequestHandler):
-    def get(self):
-		startups = Startup.query().order(-Startup.date)
-		startup_all = startups.fetch()
-		for start in startup_all:
-			res = re.match('http://(.*)', start.website)
-			res1 = re.match('https://(.*)', start.website)
-			if res == None:
-				if res1 == None:
-					pass
-				else:
-					start.website = res1.group(1)
-					start.put()
-			else:
-				start.website = res.group(1)
-				start.put()
+# class AdminPage(webapp2.RequestHandler):
+#     def get(self):
+# 		startups = Startup.query().order(-Startup.date)
+# 		startup_all = startups.fetch()
+# 		for start in startup_all:
+# 			res = re.match('http://(.*)', start.website)
+# 			res1 = re.match('https://(.*)', start.website)
+# 			if res == None:
+# 				if res1 == None:
+# 					pass
+# 				else:
+# 					start.website = res1.group(1)
+# 					start.put()
+# 			else:
+# 				start.website = res.group(1)
+# 				start.put()
 
-		self.response.write('Done!')
+# 		self.response.write('Done!')
 
 #         send_message("antoniograndinetti91@gmail.com")
 #         client = sendgrid.SendGridClient(SENDGRID_API_KEY)
@@ -105,11 +105,6 @@ class AdminPage(webapp2.RequestHandler):
 #             self.response.write("non vuoto")
 #         else:
 #             self.response.write("vuoto")
-
-        # if (username == 'admin' and password == 'password'):
-        #     self.redirect('/confirm', {'user_param': username})
-        # else:
-        #     self.redirect('/admin')  
 
 
 class ConfirmPage(webapp2.RequestHandler):
@@ -176,16 +171,16 @@ class FirmaStartup(webapp2.RequestHandler):
         startup_add.email = self.request.get('email')
         startup_add.startup_name = self.request.get('startup_name')
         startup_add.website = self.request.get('website')
-        # site = self.request.get('website')
-        # res = re.match('http://(.*)', site)
-        # res1 = re.match('https://(.*)', site)
-        # if res == None:
-        # 	if res1 == None:
-        # 		startup_add.website = site
-        # 	else:
-        # 		startup_add.website = res1.group(1)
-        # else:
-        # 	startup_add.website = res.group(1)
+        site = self.request.get('website')
+        res = re.match('http://(.*)', site)
+        res1 = re.match('https://(.*)', site)
+        if res == None:
+        	if res1 == None:
+        		startup_add.website = site
+        	else:
+        		startup_add.website = res1.group(1)
+        else:
+        	startup_add.website = res.group(1)
         
         avatar = self.request.get('avatar')
         avatar = images.resize(avatar, 150, 150)
@@ -252,7 +247,7 @@ app = webapp2.WSGIApplication([
     ('/', MainPage),
     ('/firma', FirmaStartup),
     ('/image', Image),
-    ('/admin', AdminPage),
+    # ('/admin', AdminPage),
     ('/confirm', ConfirmPage),
     ('/quote1', Quote1Page),
     ('/quote2', Quote2Page)
